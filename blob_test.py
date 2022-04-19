@@ -20,4 +20,4 @@ payload = {'client_id': access_key, 'query': 'clouds', 'page': '1', 'per_page': 
 r = requests.get(image_api+'search/photos', params=payload)
 resp = r.json()
 # print(json.dumps(resp, indent=1))
-print(resp['results']['raw'])
+print(resp['results'][0]['urls']['raw'])
