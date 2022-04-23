@@ -25,8 +25,8 @@ def load_images():
         r = requests.get(image_api+'search/photos', params=payload)
         resp = r.json()
         # print(json.dumps(resp, indent=1))
-        print("\n\n"+s)
-        print(resp['results'][0]['urls']['raw'])
+        # print("\n\n"+s)
+        # print(resp['results'][0]['urls']['raw'])
         images.append(resp['results'][0]['urls']['raw'])
         
     return images
