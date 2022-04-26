@@ -4,6 +4,11 @@ import json
 from dotenv import load_dotenv
 from textblob import TextBlob
 
+def clean_keywords(text:str, keywords:list) -> str:
+    for w in keywords:
+        text = text.replace( " "+w," ")
+    return text
+
 load_dotenv()
 access_key = os.getenv('ACCESS_KEY')
 image_api = 'https://api.unsplash.com/'
@@ -13,7 +18,13 @@ image_api = 'https://api.unsplash.com/'
 filename = 'data/hmspinafore_synopsis.txt'
 file = open(filename, 'r')
 text = file.read()
-text_list= text.split('.')
+
+# text cleanup
+removed_words = ['Pinafore', 'Dick', 'Deadeye', 'Little Buttercup', 'Josephine', 'Porter', "Joseph", "Ralph"]
+text = clean_keywords(text, removed_words)
+text = text.replace('\"','') # removing quotes
+text_list = text.split('*')
+text_list = text_list[:10] # shortening output for debugging
 
 # blob = TextBlob(text)
 # print(blob.tags)
