@@ -1,8 +1,11 @@
 import './App.css';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
+import ImageListItemBar from '@mui/material/ImageListItemBar';
+import ListSubheader from '@mui/material/ListSubheader';
 import Paper from '@mui/material/Paper';
 import SyncIcon from '@mui/icons-material/Sync';
+import { faker } from '@faker-js/faker';
 import { useEffect, useState } from 'react';
 
 function App() {
@@ -10,7 +13,8 @@ function App() {
   const [images, setImages] = useState([]);
 
   useEffect(() => {
-    loadImages()
+    // loadImages();
+    fakeImages();
   }, []);
 
   const loadImages = () => {
@@ -22,16 +26,28 @@ function App() {
       .catch(err => console.log(err))
   };
 
+  const fakeImages = () => {
+    let pics = [];
+    for (let i = 0; i < 12; i++) {
+      pics.push({'image_url': faker.image.nature(820, 820, true), 'text': faker.lorem.sentence()});
+    };
+    setImages(displayImages(pics));
+  };
+
   const displayImages = (pics) => {
     return(
       <ImageList sx={{ width: 500, height: 450 }} cols={3} rowHeight={164}>
+        <ImageListItem key="Subheader" cols={3}>
+          <ListSubheader component="div">Opera Name</ListSubheader>
+        </ImageListItem>
         {pics.map((item) => (
-          <ImageListItem key={item}>
+          <ImageListItem key={item.text}>
             <img
-              src={`${item}?w=164&h=164&fit=crop&auto=format`}
+              src={`${item.image_url}?w=164&h=164&fit=crop&auto=format`}
               alt={''}
               loading="lazy"
             />
+            <ImageListItemBar subtitle={item.text}></ImageListItemBar>
           </ImageListItem>
         ))}
       </ImageList>
@@ -41,6 +57,7 @@ function App() {
   return (
     <div className="App">
       <Paper elevation={2} className='main-container'>
+        <h1>OperAI</h1>
         {images === [] ? <SyncIcon className='loading-icon' sx={{ fontSize: 40 }}/> : images}
       </Paper>
     </div>

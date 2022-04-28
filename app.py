@@ -13,7 +13,13 @@ def hello():
 def get_images():
     try:
         images = load_images()
-        return {'images': images}, 200
+        if images:
+            print('Images loaded')
+            return {'images': images}, 200
+        else:
+            print('Error loading images')
+            return {'error': 'There was an error with the image retrieval.'}, 400
     except:
+        print('Error loading images')
         return {'error': 'There was an error with the image retrieval.'}, 400
     

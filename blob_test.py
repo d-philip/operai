@@ -27,6 +27,6 @@ def load_images():
         # print(json.dumps(resp, indent=1))
         # print("\n\n"+s)
         # print(resp['results'][0]['urls']['raw'])
-        images.append(resp['results'][0]['urls']['raw'])
+        images.append({'image_url': resp['results'][0]['urls']['raw'], 'text': s})
         
     return images
