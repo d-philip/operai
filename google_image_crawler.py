@@ -12,7 +12,7 @@ def clean_keywords(text:str, keywords:list) -> str:
 
 # The text to analyze
 # filename = 'data/chamounix_synopsis.txt'
-filename = 'data/hmspinafore_synopsis.txt'
+filename = 'data/test.txt'
 file = open(filename, 'r')
 text = file.read()
 
@@ -27,17 +27,23 @@ remove_keywords = "-opera -sullivan -news -chorus -music -sheet -gilbert"
 
 now = datetime.now()
 current_time = now.strftime("%H:%M:%S")
-directory_name = 'images'+current_time
-# shutil.rmtree('images')
+directory_name = 'images/'
+shutil.rmtree('images')
 os.mkdir(directory_name)
 
+i = 0
 for s in text_list:
     print(s+"\n\n\n")
+    save_path = directory_name+str(i)
+    if not os.path.isdir(save_path):
+        os.mkdir(save_path)
+        
     google_crawler = GoogleImageCrawler(
         feeder_threads=1,
         parser_threads=1,
         downloader_threads=1,
-        storage={'root_dir': directory_name})
+        storage={'root_dir': save_path})
     google_crawler.crawl(keyword=(s + remove_keywords), offset=0, max_num=4,
                         min_size=(0,0), max_size=None, file_idx_offset='auto')
+    i+=1
 
