@@ -5,6 +5,7 @@ import ImageListItemBar from '@mui/material/ImageListItemBar';
 import ListSubheader from '@mui/material/ListSubheader';
 import SyncIcon from '@mui/icons-material/Sync';
 import { faker } from '@faker-js/faker';
+import { Link } from "react-router-dom";
 
 export function Display(){
     const [imageData, setImageData] = useState([]);
@@ -12,7 +13,7 @@ export function Display(){
 
     useEffect(() => {
         // loadImages();
-        // fakeImages();
+        fakeImages();
       }, []);
     
     const loadImages = () => {
@@ -54,6 +55,7 @@ export function Display(){
 
     return(
         <>
+            <Link to='/'>Menu</Link>
             {images === [] ? <SyncIcon className='loading-icon' sx={{ fontSize: 40 }}/> : images}
         </>
     );

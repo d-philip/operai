@@ -2,7 +2,12 @@ import './App.css';
 import Paper from '@mui/material/Paper';
 import { useEffect, useState } from 'react';
 import { Display } from './Display';
-
+import { Menu } from './Menu';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+} from "react-router-dom";
 
 function App() {
 
@@ -11,12 +16,19 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <Paper elevation={2} className='main-container'>
-        <h1>OperAI</h1>
-        <Display/>
-      </Paper>
-    </div>
+    <Router>
+      <div className="App">
+        <Paper elevation={2} className='main-container'>
+          <h1>OperAI</h1>
+
+          <Routes>
+            <Route path='/display' element={<Display />}/>
+            <Route path='/' element={<Menu />}/>
+          </Routes>
+
+        </Paper>
+      </div>
+    </Router>
   );
 }
 
