@@ -5,11 +5,12 @@ import ImageListItemBar from '@mui/material/ImageListItemBar';
 import ListSubheader from '@mui/material/ListSubheader';
 import SyncIcon from '@mui/icons-material/Sync';
 import { faker } from '@faker-js/faker';
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export function Display(){
     const [imageData, setImageData] = useState([]);
     const [images, setImages] = useState([]);
+    const location = useLocation();
 
     useEffect(() => {
         // loadImages();
@@ -37,7 +38,7 @@ export function Display(){
         return(
           <ImageList sx={{ width: 500, height: 450 }} cols={3} rowHeight={164}>
             <ImageListItem key="Subheader" cols={3}>
-              <ListSubheader component="div">Opera Name</ListSubheader>
+              <ListSubheader component="div">{location.state.title}</ListSubheader>
             </ImageListItem>
             {pics.map((item) => (
               <ImageListItem key={item.text}>
@@ -55,7 +56,7 @@ export function Display(){
 
     return(
         <>
-            <Link to='/'>Menu</Link>
+            <Link to='/'>Back to menu</Link>
             {images === [] ? <SyncIcon className='loading-icon' sx={{ fontSize: 40 }}/> : images}
         </>
     );
