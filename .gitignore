@@ -132,3 +132,4 @@ dmypy.json
 */node_modules
 images/
 *.DS_Store
+image_urls.json
