@@ -128,4 +128,8 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+# Misc
+*/node_modules
+images/
 images*/
+*.DS_Store
