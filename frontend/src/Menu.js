@@ -13,19 +13,24 @@ export function Menu() {
     return (
         <Box sx={{ width: '100%', maxWidth: '30vw', bgcolor: 'background.paper' }}>
             <List>
-                <ListItemButton onClick={(e) => navigate('/display', {state: {title: "H.M.S. Pinafore"}})}>
+                <ListItemButton onClick={(e) => navigate('/display', {state: {title: "H.M.S. Pinafore", test: false}})}>
                     <ListItem disablePadding>
                         <ListItemText primary="H.M.S. Pinafore"/>
                     </ListItem>
                 </ListItemButton>
-                <ListItemButton onClick={(e) => navigate('/display', {state: {title: "The Departure"}})}>
+                <ListItemButton onClick={(e) => navigate('/display', {state: {title: "The Departure", test: false}})}>
                     <ListItem disablePadding>
                         <ListItemText primary="The Departure"/>
                     </ListItem>
                 </ListItemButton>
-                <ListItemButton onClick={(e) => navigate('/display', {state: {title: "Dido and Aeneas"}})}>
+                <ListItemButton onClick={(e) => navigate('/display', {state: {title: "Dido and Aeneas", test: false}})}>
                     <ListItem disablePadding>
                         <ListItemText primary="Dido and Aeneas"/>
+                    </ListItem>
+                </ListItemButton>
+                <ListItemButton onClick={(e) => navigate('/display', {state: {title: "Test Images", test: true}})}>
+                    <ListItem disablePadding>
+                        <ListItemText primary="Test Images"/>
                     </ListItem>
                 </ListItemButton>
             </List>
