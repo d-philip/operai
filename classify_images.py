@@ -2,6 +2,7 @@ import os
 import json
 import requests
 from dotenv import load_dotenv
+from collections import defaultdict
 import pprint
 
 load_dotenv()
@@ -17,7 +18,7 @@ def query(filename):
     response = requests.request("POST", api_url, headers=headers, data=data)
     return json.loads(response.content.decode("utf-8"))
 
-labels = {}
+labels = defaultdict()
 for folder in sorted(os.listdir(image_dir)):
     labels[folder] = []
     search_path = image_dir+folder+'/'
