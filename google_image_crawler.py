@@ -67,7 +67,8 @@ def image_crawl(downloader=ImageDownloader, feeder=GoogleFeeder):
     now = datetime.now()
     current_time = now.strftime("%H:%M:%S")
     directory_name = 'images/'
-    shutil.rmtree('images')
+    if os.path.isdir(directory_name):
+        shutil.rmtree('images')
     os.mkdir(directory_name)
 
     i = 0
