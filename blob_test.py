@@ -13,25 +13,25 @@ load_dotenv()
 access_key = os.getenv('ACCESS_KEY')
 image_api = 'https://api.unsplash.com/'
 
-# The text to analyze
-# filename = 'data/chamounix_synopsis.txt'
-filename = 'data/hmspinafore_synopsis.txt'
-file = open(filename, 'r')
-text = file.read()
+def load_images():
+    # The text to analyze
+    # filename = 'data/chamounix_synopsis.txt'
+    filename = 'data/hmspinafore_synopsis.txt'
+    file = open(filename, 'r')
+    text = file.read()
+    text_list= text.split('.')
 
-# text cleanup
-removed_words = ['Pinafore', 'Dick', 'Deadeye', 'Little Buttercup', 'Josephine', 'Porter', "Joseph", "Ralph"]
-text = clean_keywords(text, removed_words)
-text = text.replace('\"','') # removing quotes
-text_list = text.split('*')
-text_list = text_list[:10] # shortening output for debugging
-
-# blob = TextBlob(text)
-# print(blob.tags)
-for s in text_list:
-    payload = {'client_id': access_key, 'query': s, 'page': '1', 'per_page': '1'}
-    r = requests.get(image_api+'search/photos', params=payload)
-    resp = r.json()
-    # print(json.dumps(resp, indent=1))
-    print("\n\n"+s)
-    print(resp['results'][0]['urls']['raw'])
+    images = []
+    # blob = TextBlob(text)
+    # print(blob.tags)
+    
+    for s in text_list:
+        payload = {'client_id': access_key, 'query': s, 'page': '1', 'per_page': '1'}
+        r = requests.get(image_api+'search/photos', params=payload)
+        resp = r.json()
+        # print(json.dumps(resp, indent=1))
+        # print("\n\n"+s)
+        # print(resp['results'][0]['urls']['raw'])
+        images.append({'image_url': resp['results'][0]['urls']['raw'], 'text': s})
+        
+    return images
