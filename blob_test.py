@@ -4,6 +4,7 @@ import json
 from dotenv import load_dotenv
 from textblob import TextBlob
 import pprint
+from google_image_crawler import image_crawl_clean
 
 pp = pprint.PrettyPrinter()
 load_dotenv()
@@ -22,12 +23,15 @@ def get_speech_parts(filename):
     text = text.replace('\n','')
     text_list = text.split('*')
     text_list = text_list[:10]
+    phrases = []
     
     for item in text_list:
         blob = TextBlob(item)
-        phrases = blob.noun_phrases
-        print(item+'\n'+'*'*20)
-        pp.pprint(phrases)
+        phrase = blob.noun_phrases
+        phrases.append(phrase)
+        # print(item+'\n'+'*'*20)
+        # pp.pprint(phrase)
+    image_crawl_clean(phrases)
     
 
 def load_images():
