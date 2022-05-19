@@ -48,6 +48,38 @@ def clean_keywords(text:str, keywords:list) -> str:
         text = text.replace( " "+w," ")
     return text
 
+# Crawl images for pre-cleaned text
+def image_crawl_clean(text_list):
+    directory_name = 'images/'
+    if os.path.isdir(directory_name):
+        shutil.rmtree('images')
+    os.mkdir(directory_name)
+    
+    removed_keywords = ""
+
+    i = 0
+    for s in text_list:
+        if s == []:
+            continue
+        query = ''
+        for item in s:
+            query += item+' '
+        print('*'*30+'\n'+query+'\n'+'*'*30)
+        save_path = directory_name+str(i)
+        if not os.path.isdir(save_path):
+            os.mkdir(save_path)
+            
+        google_crawler = GoogleImageCrawler(
+            downloader_cls=UrlDownloader,
+            feeder_cls=UrlFeeder,
+            feeder_threads=1,
+            parser_threads=1,
+            downloader_threads=1,
+            storage={'root_dir': save_path})
+        google_crawler.crawl(keyword=(query + removed_keywords), offset=0, max_num=4,
+                            min_size=(0,0), max_size=None, file_idx_offset='auto')
+        i+=1
+
 def image_crawl(downloader=ImageDownloader, feeder=GoogleFeeder):
     # The text to analyze
     filename = 'data/chamounix_synopsis.txt'
