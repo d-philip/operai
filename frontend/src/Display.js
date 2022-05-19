@@ -47,9 +47,9 @@ export function Display(){
     const displayImages = (pics) => {
         setIsLoading(false);
         return(
-          <ImageList sx={{ width: '70vw', height: '70vh' }} cols={1}>
-            <ImageListItem key="Subheader" cols={1}>
-              <ListSubheader component="div" sx={{'font-size': '2vw'}}>{location.state.title}</ListSubheader>
+          <ImageList sx={{ width: '50vw', height: '50vh', bgcolor: '#FCF7F0'}} cols={1}>
+            <ImageListItem key="Subheader" cols={1} sx={{bgcolor: '#FCF7F0'}}>
+              <ListSubheader component="div" sx={{fontSize: '2vw', bgcolor: '#FCF7F0'}}>{location.state.title}</ListSubheader>
             </ImageListItem>
             {pics.map((item) => (
               <ImageListItem key={item.image_url}>
@@ -58,7 +58,7 @@ export function Display(){
                   alt={''}
                   loading="lazy"
                 />
-                <ImageListItemBar title={item.text} sx={{'font-size': '2vw'}} position="below"></ImageListItemBar>
+                <ImageListItemBar title={item.text} sx={{fontSize: '2vw'}} position="below"></ImageListItemBar>
               </ImageListItem>
             ))}
           </ImageList>
