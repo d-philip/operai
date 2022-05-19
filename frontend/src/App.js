@@ -19,8 +19,7 @@ function App() {
     <Router>
       <div className="App">
         <Paper elevation={2} className='main-container'>
-          <h1>OperAI</h1>
-
+          <h1 className='page-title'>OperAI</h1>
           <Routes>
             <Route path='/display' element={<Display />}/>
             <Route path='/' element={<Menu />}/>

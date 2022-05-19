@@ -10,25 +10,29 @@ import { Link, useLocation } from "react-router-dom";
 export function Display(){
     const [imageData, setImageData] = useState([]);
     const [images, setImages] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
     const location = useLocation();
 
     useEffect(() => {
-        // loadImages();
-        if (location.state.test) {loadImages()}
+      setTimeout(() => {
+      if (images.length === 0) {
+        if (!location.state.test) {loadImages(location.state.filename)}
         else {fakeImages()}
-      }, []);
+      }}
+      ,10000);
+    }, []);
     
-    const loadImages = () => {
-      setIsLoading(true);
+    const loadImages = (file) => {
+      
       const apiURL = 'http://127.0.0.1:5000/';
-      fetch(apiURL + 'images/test')
+      fetch(apiURL + `images?filename=${file}`)
+      // fetch(apiURL + `images/test`)
         .then(resp => resp.json())
         .then(data => displayImages(data.images))
-        .then(imageDisplay => setImages(imageDisplay), setIsLoading(false))
+        .then(imageDisplay => setImages(imageDisplay))
         .catch(err => {
           console.log(err);
-          setIsLoading(false);
+            setIsLoading(false);
         })
     };
 
@@ -41,10 +45,11 @@ export function Display(){
     };
 
     const displayImages = (pics) => {
+        setIsLoading(false);
         return(
-          <ImageList sx={{ width: 500, height: 450 }} cols={1}>
+          <ImageList sx={{ width: '70vw', height: '70vh' }} cols={1}>
             <ImageListItem key="Subheader" cols={1}>
-              <ListSubheader component="div">{location.state.title}</ListSubheader>
+              <ListSubheader component="div" sx={{'font-size': '2vw'}}>{location.state.title}</ListSubheader>
             </ImageListItem>
             {pics.map((item) => (
               <ImageListItem key={item.image_url}>
@@ -53,7 +58,7 @@ export function Display(){
                   alt={''}
                   loading="lazy"
                 />
-                <ImageListItemBar subtitle={item.text}></ImageListItemBar>
+                <ImageListItemBar title={item.text} sx={{'font-size': '2vw'}} position="below"></ImageListItemBar>
               </ImageListItem>
             ))}
           </ImageList>
