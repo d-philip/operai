@@ -1,3 +1,4 @@
+from collections import defaultdict
 from flask import Flask, Response, request
 from flask_cors import CORS
 from blob_test import load_images
@@ -7,6 +8,15 @@ import logging
 
 app = Flask(__name__)
 CORS(app)
+prev = ''
+
+def is_duplicate(filename):
+    global prev
+    if prev != filename:
+        prev = filename
+        return False
+    else:
+        return True
 
 @app.route("/")
 def hello():
@@ -16,21 +26,12 @@ def hello():
 def get_images():
     filename=request.args['filename']
     if not filename:
-        try:
-            images = load_images()
-            if images:
-                print('Images loaded')
-                return {'images': images}, 200
-            else:
-                print('Error loading images')
-                return {'error': 'There was an error with retrieving the images.'}, 400
-        except:
-            logging.exception("Exception occurred.")
-            print('Error loading images')
-            return {'error': 'There was an error with retrieving the images.'}, 400
+        return {'error': 'There was an error with retrieving the images.'}, 400
+    elif is_duplicate(filename):
+        return {'error': 'File has already been loaded.'}, 400
     else:
         try:
-            image_crawl_nouns(filename=filename, num_images=2)
+            image_crawl_nouns(filename=filename, num_images=1)
             json_file = 'data/image_urls.json'
             with open(json_file, 'r') as f:
                 data = json.load(f)

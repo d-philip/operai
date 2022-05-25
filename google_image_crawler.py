@@ -60,7 +60,7 @@ def image_crawl_nouns(filename, num_images):
         os.remove(data_file)
         
     text_list = get_speech_parts(filename)
-    remove_keywords = "-opera -sullivan -news -chorus -music -sheet -gilbert -newspaper -paper -notes -shirt -tshirt -clothing -libretto -"
+    remove_keywords = "-opera -sullivan -news -chorus -music -sheet -gilbert -newspaper -paper -notes -shirt -tshirt -clothing -libretto -act"
 
     i = 0
     for s in text_list:
@@ -100,7 +100,7 @@ def image_crawl(filename, downloader=ImageDownloader, feeder=GoogleFeeder, num_i
     text_list = text.split('*')
     text_list = text_list[:10] # shortening output for debugging
 
-    remove_keywords = "-opera -sullivan -news -chorus -music -sheet -gilbert -newspaper -paper -notes -shirt -tshirt -clothing -libretto -"
+    remove_keywords = "-opera -sullivan -news -chorus -music -sheet -gilbert -newspaper -paper -notes -shirt -tshirt -clothing -libretto -act"
 
     now = datetime.now()
     directory_name = 'images/'

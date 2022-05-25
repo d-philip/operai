@@ -3,8 +3,6 @@ import { findDOMNode } from 'react-dom';
 import Box from '@mui/material/Box';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
-import ImageListItemBar from '@mui/material/ImageListItemBar';
-import ListSubheader from '@mui/material/ListSubheader';
 import SyncIcon from '@mui/icons-material/Sync';
 import { faker } from '@faker-js/faker';
 import { Link, useLocation } from "react-router-dom";
@@ -19,8 +17,8 @@ export function Display(){
       // setTimeout(() => {
       if (images.length === 0) {
         if (!location.state.test) {
-          // loadImages(location.state.filename);
-          fakeImages();
+          loadImages(location.state.filename);
+          // fakeImages();
           loadText(location.state.filename);
         }
         else {fakeImages()}
@@ -56,7 +54,7 @@ export function Display(){
 
     const fakeImages = () => {
         let pics = [];
-        for (let i = 0; i < 64; i++) {
+        for (let i = 0; i < 66; i++) {
             pics.push({'image_url': faker.image.nature(820, 820, true), 'text': faker.lorem.sentence()});
         };
         setImages(displayImages(pics));
@@ -112,11 +110,12 @@ export function Display(){
 
     return(
         <>
-            <Link to='/'>Back to menu</Link>
-            <div style={{display:'flex', flexDirection:'column', justifyContent:'center'}}>
-              {isLoading ? <><p>Loading Images...</p><SyncIcon className='loading-icon' sx={{ fontSize: 40 }}/></> : images}
+            <h3>{location.state.title}</h3>
+            <div style={{display:'flex', justifyContent:'space-evenly', alignItems:'center', gap:'5vw'}}>
+              {isLoading ? <div style={{display:'flex', flexDirection:'column', alignItems:'center'}}><p>Loading Images...</p><SyncIcon className='loading-icon' sx={{ fontSize: 40 }}/></div> : images}
               {text}
             </div>
+            <Link to='/'>Back to menu</Link>
         </>
     );
 }
