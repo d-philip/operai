@@ -52,5 +52,18 @@ def get_test_images():
         print('Error loading test images')
         return {'error': 'There was an error with retrieving the test images.'}, 400
 
+@app.route("/text")
+def get_synopsis_text():
+    try:
+        filename=request.args['filename']
+        with open(filename) as file:
+            text = file.read()
+            text = text.replace('*', '')
+            return {'synopsis_text': text}, 200
+    except:
+        logging.exception("Exception occurred.")
+        print('Error loading synopsis text')
+        return {'error': 'There was an error with retrieving the synopsis text.'}, 400
+    
 if __name__ == '__main__':
     app.run(debug=True, threaded=False)

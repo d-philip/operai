@@ -16,7 +16,7 @@ export function Menu() {
             <p>View alluring images to accompany your favorite operas! Choose a title below to get started:</p>
             <Divider sx={{marginBottom: '5vh'}}/>
             <List sx={{bgcolor: '#FCF6ED', padding: 0}}>
-                <ListItemButton onClick={(e) => navigate('/display', {state: {title: "H.M.S. Pinafore", test: false, filename: 'data/hmspinafore_libretto.txt'}})}>
+                <ListItemButton onClick={(e) => navigate('/display', {state: {title: "H.M.S. Pinafore", test: false, filename: 'data/hmspinafore_synopsis.txt'}})}>
                     <ListItem disablePadding>
                         <ListItemText primary="H.M.S. Pinafore"/>
                     </ListItem>
